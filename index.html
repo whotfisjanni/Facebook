@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Home Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fbBg: '#f0f2f5',
+            fbBlue: '#1877f2',
+            fbGray: '#65676b',
+            fbHover: '#e4e6eb',
+            fbText: '#050505',
+            fbBorder: '#e4e6eb'
+          },
+          fontFamily: {
+            sans: ['Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .fb-shadow { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+    #modalPostInput::-webkit-scrollbar { display: none; }
+    #modalPostInput { -ms-overflow-style: none; scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-fbBg font-sans antialiased text-fbText select-none">
+
+  <header class="bg-white shadow-sm sticky top-0 z-50 h-14 flex items-center justify-between px-4">
+    <div class="flex items-center gap-2 w-[280px]">
+      <i class="fab fa-facebook text-fbBlue text-[40px] cursor-pointer"></i>
+      <div class="bg-fbBg flex items-center gap-2 px-3 h-10 rounded-full w-full max-w-[240px]">
+        <i class="fas fa-search text-fbGray text-sm"></i>
+        <input type="text" placeholder="Search Facebook" class="bg-transparent outline-none text-[15px] w-full placeholder-gray-500">
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center h-full flex-1 max-w-[600px]">
+      <button class="flex-1 flex justify-center items-center h-full border-b-[3px] border-fbBlue text-fbBlue text-xl">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="flex-1 flex justify-center items-center h-full text-fbGray hover:bg-fbBg rounded-lg my-1 text-xl transition">
+        <i class="fas fa-tv"></i>
+      </button>
+      <button class="flex-1 flex justify-center items-center h-full text-fbGray hover:bg-fbBg rounded-lg my-1 text-xl transition">
+        <i class="fas fa-users"></i>
+      </button>
+      <button class="flex-1 flex justify-center items-center h-full text-fbGray hover:bg-fbBg rounded-lg my-1 text-xl transition">
+        <i class="fas fa-store"></i>
+      </button>
+      <button class="flex-1 flex justify-center items-center h-full text-fbGray hover:bg-fbBg rounded-lg my-1 text-xl transition">
+        <i class="fas fa-gamepad"></i>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-2 w-[280px] justify-end">
+      <button class="w-10 h-10 bg-fbHover rounded-full flex items-center justify-center text-lg hover:bg-gray-300"><i class="fas fa-th"></i></button>
+      <button class="w-10 h-10 bg-fbHover rounded-full flex items-center justify-center text-lg hover:bg-gray-300"><i class="fab fa-facebook-messenger"></i></button>
+      <div class="relative">
+        <button class="w-10 h-10 bg-fbHover rounded-full flex items-center justify-center text-lg hover:bg-gray-300"><i class="fas fa-bell"></i></button>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white font-bold text-[11px] rounded-full px-1.5 min-w-[18px] text-center">3</span>
+      </div>
+      <div class="w-10 h-10 bg-gray-200 rounded-full border border-gray-300 cursor-pointer overflow-hidden">
+        <img src="pic.jpg" alt="Profile Picture" class="w-full h-full object-cover">
+     </div>
+    </div>
+  </header>
+
+  <div class="w-full flex justify-between px-4 pt-4 gap-8">
+    
+    <aside class="hidden xl:block w-[300px] shrink-0 sticky top-[72px] h-[calc(100vh-80px)] overflow-y-auto no-scrollbar space-y-0.5">
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <img src="pic.jpg" alt="Profile Picture" class="w-9 h-9 rounded-full object-cover border border-gray-200 shrink-0">
+        <span class="font-medium text-[15px]">Ashley Perez</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Meta AI</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-user-friends text-fbBlue text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Friends</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-history text-teal-600 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Memories</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-bookmark text-purple-500 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Saved</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-users text-fbBlue text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Groups</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-video text-red-500 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Reels</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-store text-fbBlue text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Marketplace</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-rss text-orange-500 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Feeds</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-heart text-pink-500 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Dating</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <i class="fas fa-calendar-alt text-red-400 text-[20px] w-9 text-center"></i>
+        <span class="font-medium text-[15px]">Events</span>
+      </div>
+      <div class="flex items-center gap-3 p-2.5 hover:bg-fbHover rounded-lg cursor-pointer transition">
+        <div class="w-9 h-9 bg-fbHover rounded-full flex items-center justify-center text-gray-700"><i class="fas fa-chevron-down text-sm"></i></div>
+        <span class="font-medium text-[15px]">See more</span>
+      </div>
+      
+      <footer class="pt-6 text-[12px] text-fbGray px-2 space-y-1">
+        <div class="flex flex-wrap gap-x-2 gap-y-0.5">
+          <a href="#" class="hover:underline">Privacy</a>·<a href="#" class="hover:underline">Terms</a>·<a href="#" class="hover:underline">Advertising</a>·<a href="#" class="hover:underline">Ad Choices</a>·<a href="#" class="hover:underline">Cookies</a>
+        </div>
+        <p>Meta © 2026</p>
+      </footer>
+    </aside>
+
+    <section class="flex-1 max-w-[590px] mx-auto space-y-4">
+      
+      <div class="flex gap-2 overflow-x-auto no-scrollbar w-full py-1">
+        <div class="w-[110px] h-[190px] bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col relative shrink-0 cursor-pointer group">
+          <div class="flex-1 bg-gray-300 flex items-center justify-center text-gray-400">
+            <i class="fas fa-user text-3xl"></i>
+          </div>
+          <div class="h-12 pt-5 pb-2 text-center text-[12px] font-semibold leading-tight relative bg-white">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-fbBlue text-white rounded-full border-[3px] border-white flex items-center justify-center shadow-md group-hover:scale-105 transition">
+              <i class="fas fa-plus text-xs"></i>
+            </div>
+            Create story
+          </div>
+        </div>
+        <div class="w-[110px] h-[190px] bg-gray-400 rounded-xl overflow-hidden relative shrink-0 cursor-pointer shadow-sm">
+          <div class="absolute top-2 left-2 w-8 h-8 bg-fbBlue text-white rounded-full border-2 border-fbBlue flex items-center justify-center overflow-hidden bg-gray-200 text-xs"><i class="fas fa-user text-gray-500"></i></div>
+          <div class="absolute bottom-2 left-2 right-2 text-white font-semibold text-[12px] leading-tight drop-shadow-md">Abegail Rufin...</div>
+        </div>
+        <div class="w-[110px] h-[190px] bg-gray-500 rounded-xl overflow-hidden relative shrink-0 cursor-pointer shadow-sm">
+          <div class="absolute top-2 left-2 w-8 h-8 bg-fbBlue text-white rounded-full border-2 border-fbBlue flex items-center justify-center overflow-hidden bg-gray-200 text-xs"><i class="fas fa-user text-gray-500"></i></div>
+          <div class="absolute bottom-2 left-2 right-2 text-white font-semibold text-[12px] leading-tight drop-shadow-md">Ronald Mamang...</div>
+        </div>
+        <div class="w-[110px] h-[190px] bg-gray-600 rounded-xl overflow-hidden relative shrink-0 cursor-pointer shadow-sm">
+          <div class="absolute top-2 left-2 w-8 h-8 bg-fbBlue text-white rounded-full border-2 border-fbBlue flex items-center justify-center overflow-hidden bg-gray-200 text-xs"><i class="fas fa-user text-gray-500"></i></div>
+          <div class="absolute bottom-2 left-2 right-2 text-white font-semibold text-[12px] leading-tight drop-shadow-md">Sps Appeal...</div>
+        </div>
+        <div class="w-[110px] h-[190px] bg-gray-700 rounded-xl overflow-hidden relative shrink-0 cursor-pointer shadow-sm">
+          <div class="absolute top-2 left-2 w-8 h-8 bg-fbBlue text-white rounded-full border-2 border-fbBlue flex items-center justify-center overflow-hidden bg-gray-200 text-xs"><i class="fas fa-user text-gray-500"></i></div>
+          <div class="absolute bottom-2 left-2 right-2 text-white font-semibold text-[12px] leading-tight drop-shadow-md">Sheryl Navar...</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl fb-shadow border border-gray-200">
+        <div class="flex items-center gap-2">
+          <img src="pic.jpg" alt="Profile Picture" class="w-9 h-9 rounded-full object-cover border border-gray-200 shrink-0">
+          <div onclick="openCreatePostModal()" class="bg-fbBg hover:bg-fbHover transition rounded-full py-2 px-4 cursor-pointer w-full text-[15px] text-gray-500 min-h-[36px] flex items-center">
+            What's on your mind, Ashley?
+          </div>
+          
+          <div class="flex items-center gap-1 shrink-0 text-fbGray">
+            <button onclick="openCreatePostModal()" class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#f3425f]" title="Live Video"><i class="fas fa-video text-base"></i></button>
+            <button onclick="openCreatePostModal()" class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#45bd62]" title="Photo/Video"><i class="fas fa-images text-base"></i></button>
+            <button onclick="openCreatePostModal()" class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#f7b928]" title="Feeling/Activity"><i class="fas fa-smile text-base"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="newsFeed" class="space-y-4"></div>
+    </section>
+
+    <aside class="hidden lg:block w-[280px] shrink-0 sticky top-[72px] h-[calc(100vh-80px)] overflow-y-auto no-scrollbar space-y-4">
+      <div>
+        <h4 class="text-[17px] font-semibold text-fbGray tracking-wide mb-2">Sponsored</h4>
+        <div class="space-y-3">
+          <div class="p-2 border border-gray-200 rounded-lg bg-white/50 text-[13px]">
+            <div class="flex justify-between items-center text-gray-500 mb-1">
+              <span class="font-medium text-fbText">Ad hidden</span>
+              <button class="text-fbBlue font-medium hover:underline text-xs">Undo</button>
+            </div>
+            <p class="text-xs text-fbGray leading-tight">You won't see this ad and ads like it.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-300">
+
+      <div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="text-[17px] font-semibold text-fbGray tracking-wide">Friend requests</h4>
+          <button class="text-fbBlue text-[14px] hover:bg-fbHover px-2 py-1 rounded">See all</button>
+        </div>
+        <div class="bg-white p-3 rounded-xl fb-shadow border border-gray-200 flex gap-3">
+          <div class="w-[60px] h-[60px] bg-gray-200 rounded-lg shrink-0 flex items-center justify-center text-gray-400 text-xl"><i class="fas fa-user"></i></div>
+          <div class="flex-1 space-y-2">
+            <div class="flex justify-between items-start">
+              <span class="font-semibold text-[15px] leading-tight block hover:underline cursor-pointer">Elsa Ebreo De Ocampo</span>
+              <span class="text-xs text-fbBlue shrink-0 ml-1">18h</span>
+            </div>
+            <div class="text-xs text-fbGray leading-none">2 mutual friends</div>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-fbBlue text-white font-semibold py-1.5 rounded-md text-xs hover:bg-blue-600 transition">Confirm</button>
+              <button class="flex-1 bg-fbHover text-fbText font-semibold py-1.5 rounded-md text-xs hover:bg-gray-300 transition">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-300">
+
+      <div>
+        <div class="flex justify-between items-center text-fbGray mb-2 px-1">
+          <h4 class="text-[17px] font-semibold tracking-wide">Contacts</h4>
+          <div class="flex items-center gap-3 text-sm">
+            <button class="hover:bg-fbHover w-7 h-7 rounded-full flex items-center justify-center"><i class="fas fa-search"></i></button>
+            <button class="hover:bg-fbHover w-7 h-7 rounded-full flex items-center justify-center"><i class="fas fa-ellipsis-h"></i></button>
+          </div>
+        </div>
+
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-3 p-2 hover:bg-fbHover rounded-lg cursor-pointer transition">
+            <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-lg w-8 text-center"></i>
+            <span class="text-[14px] font-medium flex items-center gap-1">Meta AI <i class="fas fa-check-circle text-fbBlue text-[11px]"></i></span>
+          </div>
+          <div class="flex items-center gap-3 p-2 hover:bg-fbHover rounded-lg cursor-pointer transition">
+            <div class="relative w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-xs border"><i class="fas fa-user"></i><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span></div>
+            <span class="text-[14px] font-medium">John Erwin Iloco</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="createPostModal" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-[500px] border border-gray-200 overflow-hidden flex flex-col relative fb-shadow animate-[fadeIn_0.15s_ease-out]">
+      
+      <div class="flex items-center justify-between px-4 py-4 border-b border-gray-200 relative">
+        <h3 class="text-[20px] font-bold text-center w-full text-fbText">Create post</h3>
+        <button onclick="closeCreatePostModal()" class="w-9 h-9 bg-fbHover rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-300 absolute right-4 transition">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-4 flex-1 overflow-y-auto no-scrollbar max-h-[420px] space-y-4">
+        <div class="flex items-center gap-3">
+          <img src="pic.jpg" alt="Profile Picture" class="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0">
+          <div>
+            <span class="font-semibold text-[15px] block text-fbText mb-0.5">Ashley Perez</span>
+            <button class="bg-fbHover hover:bg-gray-300 transition text-[12px] font-semibold text-gray-700 px-2 py-1 rounded-md flex items-center gap-1.5 leading-none">
+              <i class="fas fa-user-friends text-xs"></i> Friends <i class="fas fa-caret-down text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <textarea id="modalPostInput" placeholder="What's on your mind, Ashley?" rows="4" class="w-full text-[16px] outline-none resize-none leading-normal placeholder-gray-500 text-fbText" autofocus></textarea>
+
+        <div id="modalImagePreviewContainer" class="hidden relative border border-gray-200 rounded-lg overflow-hidden bg-fbBg p-1 group">
+          <img id="modalImagePreview" src="" alt="Post image visual preview source asset" class="w-full max-h-64 object-contain rounded-md">
+          <button onclick="removeAttachedModalImage()" class="absolute top-3 right-3 bg-white text-gray-700 rounded-full w-7 h-7 shadow hover:bg-gray-100 flex items-center justify-center transition border border-gray-200">
+            <i class="fas fa-times text-xs"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-gray-100 space-y-4">
+        <div class="border border-gray-300 rounded-lg p-3 flex items-center justify-between shadow-sm bg-white">
+          <span class="font-semibold text-[14px] text-fbText px-1">Add to your post</span>
+          <div class="flex items-center gap-1 text-fbGray">
+            <button onclick="triggerModalImageUpload()" class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#45bd62] transition" title="Photo/Video"><i class="fas fa-images text-xl"></i></button>
+            <button class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#1877f2] transition" title="Tag friends"><i class="fas fa-user-tag text-lg"></i></button>
+            <button class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#f7b928] transition" title="Feeling/Activity"><i class="fas fa-smile text-xl"></i></button>
+            <button class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#f5533d] transition" title="Check In"><i class="fas fa-map-marker-alt text-xl"></i></button>
+            <button class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-[#10d5c0] transition" title="GIF"><i class="fas fa-file-video text-xl"></i></button>
+            <button class="w-8 h-8 hover:bg-fbHover rounded-full flex items-center justify-center text-fbGray transition"><i class="fas fa-ellipsis-h text-lg"></i></button>
+          </div>
+        </div>
+
+        <input type="file" id="modalImageFileInput" accept="image/*" class="hidden">
+
+        <button id="modalSubmitPostBtn" disabled class="w-full bg-fbBlue text-white font-semibold py-2 rounded-lg text-[15px] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition">
+           Post
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="fixed bottom-4 right-4 bg-white shadow-lg p-3 rounded-full border border-gray-200 hover:bg-fbHover cursor-pointer transition flex items-center justify-center text-fbText z-40" onclick="openCreatePostModal()">
+    <i class="fas fa-edit text-xl"></i>
+  </div>
+
+  <script>
+    const createPostModal = document.getElementById('createPostModal');
+    const modalPostInput = document.getElementById('modalPostInput');
+    const modalImageFileInput = document.getElementById('modalImageFileInput');
+    const modalImagePreviewContainer = document.getElementById('modalImagePreviewContainer');
+    const modalImagePreview = document.getElementById('modalImagePreview');
+    const modalSubmitPostBtn = document.getElementById('modalSubmitPostBtn');
+    const newsFeed = document.getElementById('newsFeed');
+
+    let modalAttachedImageSrc = "";
+
+    const initialPosts = [
+      {
+        author: "Krisha Flores",
+        time: "6h",
+        content: `Magandang araw po sa ating lahat.<br>Ako po ay humihingi ng konting tulong para sa gamutan ng aking ama na si <span class="text-fbBlue hover:underline cursor-pointer">Rene Sanchez</span> na kasalukuyang naka-admit sa Christ the Savior hospital.`,
+        image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80",
+        likes: 42,
+        comments: 8,
+        shares: 3,
+        subPostAuthor: "Regine Mendoza",
+        subPostTagline: "is with Rosielyn Sanchez and 4 others.",
+        subPostTime: "9h",
+        subPostContent: `🙏`
+      }
+    ];
+
+    function openCreatePostModal() {
+      createPostModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      modalPostInput.focus();
+    }
+
+    function closeCreatePostModal() {
+      createPostModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+      resetModalState();
+    }
+
+    function triggerModalImageUpload() {
+      modalImageFileInput.click();
+    }
+
+    modalImageFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          modalAttachedImageSrc = event.target.result;
+          modalImagePreview.src = modalAttachedImageSrc;
+          modalImagePreviewContainer.classList.remove('hidden');
+          validateModalSubmissionRequirements();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function removeAttachedModalImage() {
+      modalAttachedImageSrc = "";
+      modalImageFileInput.value = "";
+      modalImagePreviewContainer.classList.add('hidden');
+      validateModalSubmissionRequirements();
+    }
+
+    modalPostInput.addEventListener('input', validateModalSubmissionRequirements);
+
+    function validateModalSubmissionRequirements() {
+      if (modalPostInput.value.trim() !== "" || modalAttachedImageSrc !== "") {
+        modalSubmitPostBtn.removeAttribute('disabled');
+      } else {
+        modalSubmitPostBtn.setAttribute('disabled', 'true');
+      }
+    }
+
+    function resetModalState() {
+      modalPostInput.value = "";
+      modalAttachedImageSrc = "";
+      modalImageFileInput.value = "";
+      modalImagePreviewContainer.classList.add('hidden');
+      modalSubmitPostBtn.setAttribute('disabled', 'true');
+    }
+
+    modalSubmitPostBtn.addEventListener('click', () => {
+      const text = modalPostInput.value.trim();
+      if (text === "" && modalAttachedImageSrc === "") return;
+
+      const formattedText = text.replace(/\n/g, '<br>');
+
+      const newPost = {
+        author: "Ashley Perez",
+        time: "5m",
+        content: formattedText,
+        image: modalAttachedImageSrc,
+        likes: 0,
+        comments: 0,
+        shares: 0
+      };
+
+      renderPost(newPost, true);
+      closeCreatePostModal();
+    });
+
+    function renderPost(post, prepend = false) {
+      const mainImageTag = (post.image && !post.subPostAuthor) ? `<div class="w-full bg-black border-t border-b border-gray-200 mt-2"><img src="${post.image}" class="w-full object-cover max-h-[450px]"></div>` : '';
+      
+      let subPostHTML = '';
+      if(post.subPostAuthor) {
+        subPostHTML = `
+          <div class="mt-2 mx-4 border border-gray-200 rounded-xl overflow-hidden bg-white pb-3">
+            <div class="w-full bg-black"><img src="${post.image}" class="w-full object-cover max-h-[380px]"></div>
+            <div class="p-3">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 border text-xs"><i class="fas fa-user"></i></div>
+                <div class="text-[13px] leading-tight">
+                  <span class="font-semibold hover:underline cursor-pointer text-fbText">${post.subPostAuthor}</span>
+                  <span class="text-fbGray">${post.subPostTagline}</span>
+                  <div class="text-[11px] text-fbGray flex items-center gap-1">${post.subPostTime} • <i class="fas fa-globe-americas text-[9px]"></i></div>
+                </div>
+              </div>
+              <div class="text-[14px] text-fbText leading-normal tracking-normal break-words">${post.subPostContent}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Fixed closing layout tags inside template literal below
+      const postHTML = `
+        <div class="bg-white rounded-xl fb-shadow border border-gray-200 pt-3 overflow-hidden">
+          <div class="flex items-center justify-between px-4 mb-2">
+            <div class="flex items-center gap-2">
+              <img src="pic.jpg" alt="Profile Picture" class="w-9 h-9 rounded-full object-cover border border-gray-200 shrink-0">
+              <div>
+                <div class="text-[15px] font-semibold leading-tight hover:underline cursor-pointer flex items-center gap-1 text-fbText">
+                  ${post.author}
+                </div>
+                <div class="text-[12px] text-fbGray flex items-center gap-1 mt-0.5 leading-none">
+                  <span>${post.time}</span> • <i class="fas fa-globe-americas text-[11px]"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          ${post.content ? `<div class="px-4 text-[15px] tracking-normal leading-[1.35] text-fbText break-words">${post.content}</div>` : ''}
+          ${mainImageTag}
+          ${subPostHTML}
+
+          <div class="px-4 py-2 flex justify-between items-center text-[13px] text-fbGray border-b border-fbBorder mt-2">
+            <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
+              <span class="bg-fbBlue text-white w-4 h-4 rounded-full flex items-center justify-center text-[10px] shadow-sm"><i class="fas fa-thumbs-up"></i></span>
+              <span>${post.likes || '0'}</span>
+            </div>
+            <div class="flex gap-3 text-xs">
+              <span class="hover:underline cursor-pointer">${post.comments || '0'} Comments</span>
+              <span class="hover:underline cursor-pointer">${post.shares || '0'} Shares</span>
+            </div>
+          </div>
+
+          <div class="flex text-fbGray font-semibold text-[14px] px-1 py-0.5 bg-white">
+            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition" onclick="toggleLike(this)">
+              <i class="far fa-thumbs-up text-[18px]"></i> Like
+            </button>
+            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition" onclick="openCreatePostModal()">
+              <i class="far fa-comment text-[18px]"></i> Comment
+            </button>
+            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition">
+              <i class="fa-solid fa-share text-[18px]"></i> Share
+            </button>
+          </div>
+        </div>
+      `;
+
+      if(prepend) {
+        newsFeed.insertAdjacentHTML('afterbegin', postHTML);
+      } else {
+        newsFeed.insertAdjacentHTML('beforeend', postHTML);
+      }
+    }
+
+    window.toggleLike = function(btn) {
+      const icon = btn.querySelector('i');
+      if(icon.classList.contains('far')) {
+        icon.className = 'fas fa-thumbs-up text-fbBlue text-[18px]';
+        btn.classList.add('text-fbBlue');
+      } else {
+        icon.className = 'far fa-thumbs-up text-[18px]';
+        btn.classList.remove('text-fbBlue');
+      }
+    }
+
+    initialPosts.forEach(p => renderPost(p));
+  </script>
+</body>
+</html>
