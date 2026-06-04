@@ -16,7 +16,8 @@
             fbGray: '#65676b',
             fbHover: '#e4e6eb',
             fbText: '#050505',
-            fbBorder: '#e4e6eb'
+            fbBorder: '#e4e6eb',
+            fbCommentIcons: '#8c939d'
           },
           fontFamily: {
             sans: ['Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
@@ -294,7 +295,7 @@
         <input type="file" id="modalImageFileInput" accept="image/*" class="hidden">
 
         <button id="modalSubmitPostBtn" disabled class="w-full bg-fbBlue text-white font-semibold py-2 rounded-lg text-[15px] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition">
-           Post
+            Post
         </button>
       </div>
 
@@ -398,9 +399,7 @@
         time: "5m",
         content: formattedText,
         image: modalAttachedImageSrc,
-        likes: 0,
-        comments: 0,
-        shares: 0
+      
       };
 
       renderPost(newPost, true);
@@ -430,7 +429,6 @@
         `;
       }
 
-      // Fixed closing layout tags inside template literal below
       const postHTML = `
         <div class="bg-white rounded-xl fb-shadow border border-gray-200 pt-3 overflow-hidden">
           <div class="flex items-center justify-between px-4 mb-2">
@@ -451,28 +449,34 @@
           ${mainImageTag}
           ${subPostHTML}
 
-          <div class="px-4 py-2 flex justify-between items-center text-[13px] text-fbGray border-b border-fbBorder mt-2">
-            <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
-              <span class="bg-fbBlue text-white w-4 h-4 rounded-full flex items-center justify-center text-[10px] shadow-sm"><i class="fas fa-thumbs-up"></i></span>
-              <span>${post.likes || '0'}</span>
+          <div class="flex text-[#65676b] px-4 py-1.5 bg-white justify-start gap-8 items-center border-b border-fbBorder">
+            <button class="flex items-center justify-center hover:bg-fbBg p-2 rounded-full transition" onclick="toggleLike(this)" title="Like">
+              <i class="fa-regular fa-thumbs-up text-[20px]"></i>
+            </button>
+            <button class="flex items-center justify-center hover:bg-fbBg p-2 rounded-full transition" onclick="focusCommentInput(this)" title="Comment">
+              <i class="fa-regular fa-comment text-[20px]"></i>
+            </button>
+            <button class="flex items-center justify-center hover:bg-fbBg p-2 rounded-full transition" title="Share">
+              <i class="fa-solid fa-share text-[20px]"></i>
+            </button>
+          </div>
+
+          <div class="p-3 bg-white flex items-center gap-2">
+            <div class="relative w-8 h-8 rounded-full border border-gray-200 shrink-0 overflow-hidden">
+              <img src="pic.jpg" alt="Profile Picture" class="w-full h-full object-cover">
             </div>
-            <div class="flex gap-3 text-xs">
-              <span class="hover:underline cursor-pointer">${post.comments || '0'} Comments</span>
-              <span class="hover:underline cursor-pointer">${post.shares || '0'} Shares</span>
+            <div class="flex-1 bg-[#f0f2f5] rounded-full px-4 py-1.5 flex items-center justify-between min-h-[36px]">
+              <input type="text" placeholder="Write a comment..." class="bg-transparent outline-none text-[15px] text-fbText placeholder-gray-500 w-full pr-2">
+              <div class="flex items-center gap-3 text-fbCommentIcons shrink-0">
+                <button class="hover:text-gray-700 transition" title="Insert an emoji avatar"><i class="fa-regular fa-face-smile text-[17px]"></i></button>
+                <button class="hover:text-gray-700 transition" title="Insert an emoji"><i class="fa-regular fa-face-smile-beam text-[17px]"></i></button>
+                <button class="hover:text-gray-700 transition" title="Attach a photo or video"><i class="fa-solid fa-camera text-[16px]"></i></button>
+                <button class="hover:text-gray-700 transition" title="Insert a GIF"><i class="fa-solid fa-file-video text-[16px]"></i></button>
+                <button class="hover:text-gray-700 transition" title="Post a sticker"><i class="fa-regular fa-note-sticky text-[17px]"></i></button>
+              </div>
             </div>
           </div>
 
-          <div class="flex text-fbGray font-semibold text-[14px] px-1 py-0.5 bg-white">
-            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition" onclick="toggleLike(this)">
-              <i class="far fa-thumbs-up text-[18px]"></i> Like
-            </button>
-            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition" onclick="openCreatePostModal()">
-              <i class="far fa-comment text-[18px]"></i> Comment
-            </button>
-            <button class="flex-1 flex items-center justify-center gap-2 py-2 hover:bg-fbBg rounded-lg transition">
-              <i class="fa-solid fa-share text-[18px]"></i> Share
-            </button>
-          </div>
         </div>
       `;
 
@@ -485,13 +489,19 @@
 
     window.toggleLike = function(btn) {
       const icon = btn.querySelector('i');
-      if(icon.classList.contains('far')) {
-        icon.className = 'fas fa-thumbs-up text-fbBlue text-[18px]';
+      if(icon.classList.contains('fa-regular')) {
+        icon.className = 'fas fa-thumbs-up text-fbBlue text-[20px]';
         btn.classList.add('text-fbBlue');
       } else {
-        icon.className = 'far fa-thumbs-up text-[18px]';
+        icon.className = 'fa-regular fa-thumbs-up text-[20px]';
         btn.classList.remove('text-fbBlue');
       }
+    }
+
+    window.focusCommentInput = function(btn) {
+      const postCard = btn.closest('.bg-white');
+      const input = postCard.querySelector('input[placeholder="Write a comment..."]');
+      if(input) input.focus();
     }
 
     initialPosts.forEach(p => renderPost(p));
